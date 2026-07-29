@@ -1,0 +1,1 @@
+/home/gowri/firedome/firedomed/target/debug/firedomed: /home/gowri/firedome/firedomed/src/config.rs /home/gowri/firedome/firedomed/src/logger.rs /home/gowri/firedome/firedomed/src/main.rs /home/gowri/firedome/firedomed/src/models.rs /home/gowri/firedome/firedomed/src/rules.rs
