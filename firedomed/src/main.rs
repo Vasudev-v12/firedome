@@ -2,6 +2,9 @@ mod logger;
 mod config;
 mod models;
 mod rules;
+mod firewall;
+
+use crate::models::{Packet, Protocol};
 
 use std::{
     fs::{self, OpenOptions},
@@ -74,23 +77,42 @@ fn main() {
         println!("{:#?}", rule);
 
     }
-
     log("Configuration loaded");
-
     log("Firewall started");
-
     println!("Firewall is now running...");
 
     // testing
-    let test_ip = "8.8.8.8";
+    let packet = Packet {
 
-    if rules::check_ip(test_ip, &rules) {
+        source_ip: "192.168.1.25".to_string(),
 
-        println!("{} is ALLOWED", test_ip);
+        destination_ip: "8.8.8.8".to_string(),
+
+        protocol: Protocol::TCP,
+
+        destination_port: 443,
+
+    };
+
+    println!();
+
+    println!("Incoming Packet");
+
+    println!("{:#?}", packet);
+
+    println!();
+
+    let allowed = firewall::inspect_packet(&packet, &rules);
+
+    println!();
+
+    if allowed {
+
+        println!("Packet Accepted");
 
     } else {
 
-        println!("{} is BLOCKED", test_ip);
+        println!("Packet Blocked");
 
     }
     
