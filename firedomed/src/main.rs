@@ -1,8 +1,9 @@
-mod logger;
 mod config;
+mod ex_nft;
+mod firewall;
+mod logger;
 mod models;
 mod rules;
-mod firewall;
 
 use crate::models::{Packet, Protocol};
 
@@ -61,45 +62,33 @@ fn main() {
     }
 
     println!();
-
     println!("Loading firewall rules...");
 
     let rules = rules::load_rules("../config/rules.conf");
 
     println!();
-
     println!("Loaded {} rules", rules.len());
-
     println!();
 
     for rule in &rules {
-
         println!("{:#?}", rule);
-
     }
+
     log("Configuration loaded");
     log("Firewall started");
     println!("Firewall is now running...");
 
     // testing
     let packet = Packet {
-
         source_ip: "192.168.1.25".to_string(),
-
         destination_ip: "8.8.8.8".to_string(),
-
         protocol: Protocol::TCP,
-
         destination_port: 443,
-
     };
-
+    ex_nft::block_ip("8.8.8.8").unwrap();
     println!();
-
     println!("Incoming Packet");
-
     println!("{:#?}", packet);
-
     println!();
 
     let allowed = firewall::inspect_packet(&packet, &rules);
@@ -107,20 +96,14 @@ fn main() {
     println!();
 
     if allowed {
-
         println!("Packet Accepted");
-
     } else {
-
         println!("Packet Blocked");
-
     }
-    
+
     loop {
         thread::sleep(Duration::from_secs(5));
-
         log("Heartbeat");
-
         println!("Firewall alive...");
     }
 }
