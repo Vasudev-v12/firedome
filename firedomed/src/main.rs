@@ -56,7 +56,7 @@ fn main() {
     }
 
     println!("nftables initialized.");
-    let rules = match fs::read_to_string("/etc/firewall/rules.conf") {
+    let rules = match fs::read_to_string("/etc/firedome/rules.conf") {
         Ok(content) => content,
         Err(error) => {
             eprintln!("Failed to read rules.conf: {}", error);
