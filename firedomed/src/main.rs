@@ -79,6 +79,24 @@ fn main() {
             if let Err(error) = ex_nft::block_ip(ip) {
                 eprintln!("Failed to block {}: {}", ip, error);
             }
+        } else if parts[0] == "ALLOW" {
+            let ip = parts[1];
+            println!("Allowing {}", ip);
+            if let Err(error) = ex_nft::allow_ip(ip) {
+                eprintln!("Failed to allow {}: {}", ip, error);
+            }
+        } else if parts[0] == "BLOCK_PORT" {
+            let p = parts[1];
+            println!("Blocking Port {}", p);
+            if let Err(error) = ex_nft::block_port(p) {
+                eprintln!("Failed to block port {}: {}", p, error);
+            }
+        } else if parts[0] == "ALLOW_PORT" {
+            let p = parts[1];
+            println!("Allowing Port {}", p);
+            if let Err(error) = ex_nft::allow_port(p) {
+                eprintln!("Failed to allow port {}: {}", p, error);
+            }
         }
     }
     println!("Firewall started.");
