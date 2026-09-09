@@ -1,0 +1,15 @@
+[Unit]
+Description=Firedome Firewall Daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/firedomed
+User=root
+Group=root
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+EOF
