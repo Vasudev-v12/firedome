@@ -8,6 +8,10 @@ sudo apt install nftables
 sudo systemctl enable nftables
 sudo systemctl start nftables
 
+# installing firedome shell tool
+sudo cp ~/firedome/firedome/firedome /usr/local/bin
+sudo chmod +x /usr/local/bin/firedome
+
 # check if firedome is already running, stop it
 if systemctl is-active --quiet "firedomed"; then
     sudo systemctl stop firedomed;

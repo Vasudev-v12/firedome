@@ -1,0 +1,38 @@
+#!/bin/bash
+
+SERVICE="firedomed"
+
+case "$1" in
+    start)
+        echo "Starting Firedome..."
+        sudo systemctl start "$SERVICE"
+        ;;
+
+    stop)
+        echo "Stopping Firedome..."
+        sudo systemctl stop "$SERVICE"
+        sudo nft delete table inet firedome
+        ;;
+
+    restart)
+        echo "Restarting Firedome..."
+        sudo systemctl restart "$SERVICE"
+        ;;
+
+    status)
+        sudo systemctl status "$SERVICE"
+        ;;
+
+    *)
+        echo "Firedome Firewall"
+        echo
+        echo "Usage: firedome {start|stop|restart|status}"
+        echo
+        echo "Commands:"
+        echo "  start    Start the firewall"
+        echo "  stop     Stop the firewall"
+        echo "  restart  Restart the firewall"
+        echo "  status   Show firewall status"
+        exit 1
+        ;;
+esac
